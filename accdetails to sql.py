@@ -1,0 +1,33 @@
+import pickle
+import mysql.connector as mc
+db=mc.connect(host="localhost",user="root",passwd="killmonger21!",database="bank") #connecting pythond and SQL
+cursor=db.cursor()
+newaccountno=int(input("Enter acc no "))
+nam = input("Enter Account Holders name.: ")
+print("\n")
+dob = input("Enter Account Holder's Date of birth (YYYY-MM-DD) : ")
+print("\n")
+Gen = input("Enter Gender of Account holder (M/F): ")
+print("\n")
+age =int(input("Enter Account holder's age."))
+print("\n")
+aadharno = input("Enter Account holder's  12 digit Aadhar number")
+print("\n")
+phoneno = input("Enter Account holder's Phone number.")
+print("\n")
+address = input("Enter account holder's Adddress")
+print("\n")
+bankbranch = "Kkm"
+print("\n")
+pin=int(input("Enter a 4 digit PIN for your Bank Account"))
+pin1=int(input("Enter your pin once more"))
+balance = int(input(
+            "Enter how much money you want to deposit.The maximum amount you can only deposit maximum 50,000 per day"))
+print("\n")
+query="INSERT INTO bankmain VALUES ({0},'{1}','{2}','{3}',{4},'{5}','{6}','{7}','{8}',{9})". format(newaccountno,nam,dob,Gen,age,aadharno,phoneno,address,bankbranch,balance)
+cursor.execute(query)
+db.commit()
+cursor.execute("SELECT * FROM bankmain WHERE ACCOUNTNO={}". format(newaccountno))
+print("Congratulations on creating your Bank account!  :")
+results=cursor.fetchall()
+print(results)
